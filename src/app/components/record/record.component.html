@@ -1,0 +1,22 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th>CategoryName</th>
+        <th>Name</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Url</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let record of recordDetails">
+        <td>{{ record.categoryName }}</td>
+        <td>{{ record.title }}</td>
+        <td>{{ record.userName }}</td>
+        <td>{{ record.password }}</td>
+        <td>{{ record.url }}</td>
+        <td>{{ record.notes }}</td>
+      </tr>
+    </tbody>
+  </table>
