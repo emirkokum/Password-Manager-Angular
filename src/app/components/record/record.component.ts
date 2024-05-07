@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RecordDetail } from '../../models/recordDetail';
 import { RecordDetailService } from '../../services/recordDetail.service';
+import { Record } from '../../models/record';
 
 @Component({
   selector: 'app-record',
@@ -12,7 +13,7 @@ import { RecordDetailService } from '../../services/recordDetail.service';
 })
 export class RecordComponent implements OnInit {
   recordDetails: RecordDetail[] = [];
-
+  records:Record[] = []
   constructor(private recordDetailService:RecordDetailService){}
 
   ngOnInit(): void {
@@ -22,7 +23,6 @@ export class RecordComponent implements OnInit {
   getRecordDetails(){
     this.recordDetailService.getRecordDetails().subscribe(response => {
       this.recordDetails = response.data
-      console.log(this.recordDetails);
     })
   }
 }

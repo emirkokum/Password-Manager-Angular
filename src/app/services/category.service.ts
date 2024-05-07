@@ -9,12 +9,17 @@ import { Observable } from 'rxjs';
 })
 export class CategoryService {
 
-  apiUrl = "https://localhost:44355/api/Category/getall"
+  apiUrl = "https://localhost:44355/api/Category/"
 
   constructor(private httpClient:HttpClient) { }
 
   getCategories():Observable<DataResponseModel<Category>>{
-    return this.httpClient.get<DataResponseModel<Category>>(this.apiUrl)
+    let newUrl = this.apiUrl + "getall"
+    return this.httpClient.get<DataResponseModel<Category>>(newUrl)
+  }
+
+  add(category:Category){
+    return this.httpClient.post(this.apiUrl + "add",category)
   }
 
 }
