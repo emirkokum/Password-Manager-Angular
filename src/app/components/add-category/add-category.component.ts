@@ -1,25 +1,37 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule,Validators,FormGroup } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators, FormGroup } from '@angular/forms';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../models/category';
+import { RecordService } from '../../services/record.service';
+import { Record } from '../../models/record';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-category',
   standalone: true,
-  imports: [ReactiveFormsModule,FormsModule,CommonModule],
+  imports: [ReactiveFormsModule, FormsModule, CommonModule],
   templateUrl: './add-category.component.html',
   styleUrl: './add-category.component.css'
 })
 export class AddCategoryComponent implements OnInit {
-  categories:Category[] = []
-  categoryAddForm:FormGroup;
+  categories: Category[] = []
+  categoryAddForm: FormGroup;
+  records: Record[] = []
 
-  constructor( private formBuilder: FormBuilder, private categoryService: CategoryService) { }
+  constructor(private toastr: ToastrService, private formBuilder: FormBuilder, private categoryService: CategoryService, private recordService: RecordService) { }
 
   ngOnInit(): void {
+    this.getRecords()
     this.getCategories()
     this.createCategoryAddForm()
+  }
+
+  getRecords() {
+    this.recordService.getRecords().subscribe(response => {
+      this.records = response.data
+      console.log(this.records);
+    })
   }
 
   getCategories() {
@@ -28,25 +40,60 @@ export class AddCategoryComponent implements OnInit {
     })
   }
 
-  createCategoryAddForm(){
+  refreshPage() {
+    this.createCategoryAddForm()
+    this.getCategories()
+    this.getRecords()
+  }
+
+  createCategoryAddForm() {
     this.categoryAddForm = this.formBuilder.group({
-      name:["",Validators.required]
+      name: ["", Validators.required]
     })
   }
 
-  add(){
-    if(this.categoryAddForm.valid){
-      let categoryModel = Object.assign({},this.categoryAddForm.value) // Formdaki alanların karsiligini alir
+  ifThereIsRecordInThisCategory(category: Category): boolean {
+    for (let i = 0; i < this.categories.length; i++) {
+      if (this.records[i].categoryId == category.id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  addCategory() {
+    if (this.categoryAddForm.valid) {
+      let categoryModel = Object.assign({}, this.categoryAddForm.value) // Formdaki alanların karsiligini alir
       this.categoryService.add(categoryModel).subscribe(response => {
-        console.log(response);
-      },responseError => {
-        console.log(responseError.error);
+        this.refreshPage()
+        this.toastr.success(response.message, "Success")
+      }, responseError => {
+        if (responseError.error?.Errors?.length > 0) {
+          for (let i = 0; i < responseError.error.Errors.length; i++) {
+            this.toastr.error(responseError.error.Errors[i].ErrorMessage, "Validation Error")
+          }
+        }
       })
-    }else{
+    } else {
+      this.toastr.error("Your inputs are not valid", "Not Valid")
+    }
+  }
+
+  deleteCategory(category: Category) {
+    if (this.ifThereIsRecordInThisCategory(category)) {
+      console.log("There are records with this category you can't delete it.", "Can't Delete")
+    } else {
+      this.categoryService.delete(category).subscribe(reponse => {
+        this.toastr.success(reponse.message, "Deleted")
+        this.refreshPage()
+      })
     }
   }
 
 
 
-  
+
+
+
+
 }

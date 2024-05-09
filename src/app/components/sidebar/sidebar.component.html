@@ -1,34 +1,23 @@
 <div class="sidebar">
     <div class="sidebar-header">
-        <h3>Pass-Man</h3>
+        <a href="#">Pass-Man</a>
     </div>
     <ul class="list-unstyled components">
         <li>
-            <a id="add-record-button">Add New Record +</a>   
+            <a routerLink="/addrecord" class="add-button" id="add-record-button">Add New Record +</a>
         </li>
         <li>
-            <a id="add-folder-button">Add New Folder +</a>   
+            <a routerLink="/addcategory" class="add-button" id="add-folder-button">Add New Folder +</a>
         </li>
         <hr>
         <li *ngFor="let category of categories">
-            <a href="#">{{category.name}}</a>
-            <ul *ngFor="let record of recordsByCategoryId">
-                <li *ngIf="category.id == record.categoryId">{{ record.title }}</li>
+            <a routerLink="/category/{{category.id}}">{{category.name}}</a>
+            <!-- <app-add-record (recordAdded)="add($event.value)"></app-add-record> -->
+            <ul class="list-unstyled record-list" *ngFor="let record of records">
+                <li *ngIf="record.categoryId == category.id">
+                    <a class="record-title" href="">{{ record.title }}</a>
+                </li>
             </ul>
         </li>
-        
-        <hr>
-
-        <!-- <li>
-            <a href="#">Bankalar</a>
-            <ul class="child-list list-unstyled pt-2">
-                <li>Akbank</li>
-                <li>Garanti</li>
-                <li>Enpara</li>
-            </ul>
-        </li>
-        <li>
-            <a href="#">Sosyal Medya</a>
-        </li> -->
     </ul>
 </div>
