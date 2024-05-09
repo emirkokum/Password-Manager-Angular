@@ -1,0 +1,69 @@
+<div class="content my-5 p-5">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <p class="title">Add Record</p>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="recordAddForm">
+                    <div class="my-3">
+                        <label for="categorySelect">Category</label>
+                        <select formControlName="categoryId" name="categorySelect" class="form-select"
+                            aria-label="Default select example">
+                            <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}
+                            </option>
+                        </select>
+                    </div>
+                </form>
+                <form [formGroup]="recordAddForm">
+                    <div class="my-3">
+                        <label for="title">Title</label>
+                        <div class="form-group">
+                            <input class="form-control" type="text" id="title" formControlName="title"
+                                placeholder="Title" />
+                        </div>
+                    </div>
+                </form>
+                <form [formGroup]="recordAddForm">
+                    <div class="my-3">
+                        <label for="userName">Username</label>
+                        <div class="form-group">
+                            <input class="form-control" type="text" id="userName" formControlName="userName"
+                                placeholder="Username" />
+                        </div>
+                    </div>
+                </form>
+                <form [formGroup]="recordAddForm">
+                    <div class="my-3">
+                        <label for="password">Password</label>
+                        <div class="form-group">
+                            <input class="form-control" type="text" id="password" formControlName="password"
+                                placeholder="Password" />
+                        </div>
+                    </div>
+                </form>
+                <form [formGroup]="recordAddForm">
+                    <div class="my-3">
+                        <label for="url">Url</label>
+                        <div class="form-group">
+                            <input class="form-control" type="text" id="url" formControlName="url"
+                                placeholder="www.google.com" />
+                        </div>
+                    </div>
+                </form>
+                <form [formGroup]="recordAddForm">
+                    <div class="my-3">
+                        <label for="notes">Notes</label>
+                        <div class="form-group">
+                            <input class="form-control" type="text" id="notes" formControlName="notes"
+                                placeholder="This is my main account" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer d-flex justify-content-center py-3">
+                <button class="btn btn-primary w-50" (click)="add()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
