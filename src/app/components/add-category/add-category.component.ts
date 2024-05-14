@@ -30,7 +30,6 @@ export class AddCategoryComponent implements OnInit {
   getRecords() {
     this.recordService.getRecords().subscribe(response => {
       this.records = response.data
-      console.log(this.records);
     })
   }
 

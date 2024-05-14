@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RecordDetail } from '../../models/recordDetail';
 import { RecordDetailService } from '../../services/recordDetail.service';
 import { Record } from '../../models/record';
 import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-record',
@@ -24,9 +24,7 @@ export class RecordComponent implements OnInit {
         this.getRecordDetailsByCategoryId(params["categoryId"])
       }
       else{
-        this.getRecordDetails()
-        console.log(this.recordDetails);
-        
+        this.getRecordDetails()        
       }
     })
   }
