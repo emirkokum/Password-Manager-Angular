@@ -1,0 +1,80 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Record</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="content p-2" *ngIf="recordUpdateForm">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form [formGroup]="recordUpdateForm">
+                                    <div class="my-3">
+                                        <label for="categorySelect">Category</label>
+                                        <select formControlName="categoryId" name="categorySelect" class="form-select"
+                                            aria-label="Default select example">
+                                            <option *ngFor="let category of categories" value="{{category.id}}">
+                                                {{category.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </form>
+                                <form [formGroup]="recordUpdateForm">
+                                    <div class="my-3">
+                                        <label for="title">Title</label>
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" id="title" formControlName="title"
+                                                placeholder="Title" />
+                                        </div>
+                                    </div>
+                                </form>
+                                <form [formGroup]="recordUpdateForm">
+                                    <div class="my-3">
+                                        <label for="userName">Username</label>
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" id="userName"
+                                                formControlName="userName" placeholder="Username" />
+                                        </div>
+                                    </div>
+                                </form>
+                                <form [formGroup]="recordUpdateForm">
+                                    <div class="my-3">
+                                        <label for="password">Password</label>
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" id="password"
+                                                formControlName="password" placeholder="Password" />
+                                        </div>
+                                    </div>
+                                </form>
+                                <form [formGroup]="recordUpdateForm">
+                                    <div class="my-3">
+                                        <label for="url">Url</label>
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" id="url" formControlName="url"
+                                                placeholder="www.google.com" />
+                                        </div>
+                                    </div>
+                                </form>
+                                <form [formGroup]="recordUpdateForm">
+                                    <div class="my-3">
+                                        <label for="notes">Notes</label>
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" id="notes" formControlName="notes"
+                                                placeholder="This is my main account" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="updateRecord()" >Update</button>
+            </div>
+        </div>
+    </div>
+</div>

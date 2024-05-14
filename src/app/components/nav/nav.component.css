@@ -1,5 +1,9 @@
+#mynavbar{
+    height: 5.6rem;
+}
+
 .navbar-top{
-    background-color: #303030;
+    background-color: #505050;
 }
 
 .navbar-top a{

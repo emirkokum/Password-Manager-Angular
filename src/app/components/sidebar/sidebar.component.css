@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Jacquard+12&family=Poetsen+One&display=swap');
+
 a{
   text-decoration: none;
   color: #eee;
@@ -13,9 +15,9 @@ a{
 }
 
 .sidebar-header {
-  font-size: 32px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
+  font-family: "Poetsen One", "sans-serif";
+  font-size: 48px;
+  padding-bottom: 3%;
 }
 
 .sidebar ul.components {
@@ -47,8 +49,11 @@ a{
   cursor: pointer;
 }
 
-.sidebar ul.record-list li a {
-  font-size: 16px;
+.sidebar ul.record-list li button {
+  background-color: transparent;
+  border: white;
+  height: 20px;
+  margin: 1%;
 }
 
 .record-list {

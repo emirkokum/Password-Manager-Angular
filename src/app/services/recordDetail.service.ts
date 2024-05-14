@@ -16,8 +16,14 @@ export class RecordDetailService {
     return this.httpClient.get<DataResponseModel<RecordDetail>>(newUrl)
   }
 
+  getRecordDetailsById(id:number){
+    let newUrl = this.apiUrl + "getrecorddetailsbyid?id=" + id
+    return this.httpClient.get<DataResponseModel<RecordDetail>>(newUrl)
+  }
+
   getRecordDetailsByCategoryId(categoryId:number){
     let newUrl = this.apiUrl + "getrecorddetailsbycategoryid?categoryId=" + categoryId
     return this.httpClient.get<DataResponseModel<RecordDetail>>(newUrl)
   }
+
 }

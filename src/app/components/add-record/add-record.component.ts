@@ -1,17 +1,16 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { RecordService } from '../../services/record.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { title } from 'process';
 import { ToastrService } from 'ngx-toastr';
 import { Category } from '../../models/category';
 import { CategoryService } from '../../services/category.service';
 import { CommonModule } from '@angular/common';
-import { EventEmitter } from 'stream';
+
 
 @Component({
   selector: 'app-add-record',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './add-record.component.html',
   styleUrl: './add-record.component.css'
 })
@@ -44,7 +43,7 @@ export class AddRecordComponent implements OnInit {
       this.categories = response.data
     })
   }
-  
+
   refreshPage() {
     this.createRecordAddForm()
     this.getCategories()

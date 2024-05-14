@@ -12,12 +12,16 @@
         <hr>
         <li *ngFor="let category of categories">
             <a routerLink="/category/{{category.id}}">{{category.name}}</a>
-            <!-- <app-add-record (recordAdded)="add($event.value)"></app-add-record> -->
             <ul class="list-unstyled record-list" *ngFor="let record of records">
                 <li *ngIf="record.categoryId == category.id">
-                    <a class="record-title" href="">{{ record.title }}</a>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        (click)="setRecordDetail(record.id)">
+                        {{ record.title }}
+                    </button>
                 </li>
             </ul>
         </li>
     </ul>
 </div>
+
+<app-record-detail [record]="record"></app-record-detail>
