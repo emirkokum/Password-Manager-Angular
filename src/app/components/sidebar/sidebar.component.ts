@@ -7,12 +7,13 @@ import { Record } from '../../models/record';
 import { RouterModule } from '@angular/router';
 import { RecordDetailComponent } from '../record-detail/record-detail.component';
 import { RecordDetailService } from '../../services/recordDetail.service';
-import { RecordDetail } from '../../models/recordDetail';
+import { AddRecordComponent } from '../add-record/add-record.component';
+import { AddCategoryComponent } from '../add-category/add-category.component';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule,RouterModule,RecordDetailComponent],
+  imports: [CommonModule,RouterModule,RecordDetailComponent,AddRecordComponent,AddCategoryComponent],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
@@ -42,9 +43,6 @@ export class SidebarComponent implements OnInit {
   }
 
   setRecordDetail(id:number){
-    // this.recordDetailService.getRecordDetailsById(id).subscribe(response =>{
-    //   this.recordDetail= response.data            
-    // })
     this.recordService.getRecordById(id).subscribe(response => {
       this.record = response.data
     })

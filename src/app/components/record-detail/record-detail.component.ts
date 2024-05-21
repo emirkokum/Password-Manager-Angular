@@ -22,8 +22,10 @@ export class RecordDetailComponent {
     this.createRecordUpdateForm(value);
   }
 
+  showPassword: boolean = false;
   recordUpdateForm: FormGroup;
   categories: Category[] = []
+
   constructor(
     private formBuilder: FormBuilder,
     private categoryService: CategoryService,
@@ -54,6 +56,26 @@ export class RecordDetailComponent {
     })
   }
 
+  toggleShowPassword() {
+    this.showPassword = !this.showPassword;
+  }
+
+  copyPassword() {
+    const passwordInput = document.getElementById('password') as HTMLInputElement;
+    const password = passwordInput.value;
+
+    navigator.clipboard.writeText(password)
+      .then(() => {
+        this.toastr.info("Password coppied to clipboard")
+      })
+      .catch((err) => {
+        console.error('Unable to copy password to clipboard', err);
+
+      });
+  }
+
+
+
   updateRecord() {
     if (this.recordUpdateForm.valid) {
       let recordModel = Object.assign({}, this.recordUpdateForm.value)
@@ -71,4 +93,8 @@ export class RecordDetailComponent {
       this.toastr.error("Your inputs are not valid", "Not Valid")
     }
   }
+
+
+
+
 }

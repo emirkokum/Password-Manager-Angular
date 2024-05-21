@@ -29,6 +29,11 @@ export class RecordService {
     return this.httpClient.post<ResponseModel>(newPath,record)
   }
 
+  delete(record:Record):Observable<ResponseModel>{
+    let newPath = this.apiUrl + "delete"
+    return this.httpClient.post<ResponseModel>(newPath,record)
+  }
+
   update(record:Record):Observable<ResponseModel>{
     let newPath = this.apiUrl + "update"
     return this.httpClient.post<ResponseModel>(newPath,record)

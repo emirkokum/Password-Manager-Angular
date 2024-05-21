@@ -51,11 +51,11 @@ export class AddCategoryComponent implements OnInit {
     })
   }
 
-  ifThereIsRecordInThisCategory(category: Category): boolean {
+  ifThereIsRecordInThisCategory(categoryId: number): boolean {
     for (let i = 0; i < this.categories.length; i++) {
-      if (this.records[i].categoryId == category.id) {
+      if (this.records[i].categoryId == categoryId) {
         return true;
-      }
+      }return false;
     }
     return false;
   }
@@ -79,11 +79,11 @@ export class AddCategoryComponent implements OnInit {
   }
 
   deleteCategory(category: Category) {
-    if (this.ifThereIsRecordInThisCategory(category)) {
-      console.log("There are records with this category you can't delete it.", "Can't Delete")
+    if (this.ifThereIsRecordInThisCategory(category.id)) {
+      this.toastr.error("There are records with this category you can't delete it.", "Can't Delete")
     } else {
-      this.categoryService.delete(category).subscribe(reponse => {
-        this.toastr.success(reponse.message, "Deleted")
+      this.categoryService.delete(category).subscribe(response => {
+        this.toastr.success(response.message, "Deleted")
         this.refreshPage()
       })
     }
