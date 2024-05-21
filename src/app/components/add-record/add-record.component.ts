@@ -54,9 +54,9 @@ export class AddRecordComponent implements OnInit {
     if (this.recordAddForm.valid) {
       let recordModel = Object.assign({}, this.recordAddForm.value)
       this.recordService.add(recordModel).subscribe(response => {
-        // this.refreshPage()
+        this.refreshPage()
         // this.recordAdded.emit(recordModel.title);
-        window.location.reload();
+        // window.location.reload();
         this.toastr.success(response.message, "Success")
       }, responseError => {
         if (responseError.error?.Errors?.length > 0) {

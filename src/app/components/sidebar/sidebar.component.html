@@ -1,13 +1,18 @@
 <div class="sidebar">
     <div class="sidebar-header">
-        <a href="#">Pass-Man</a>
+        <a href="#">PassMan</a>
     </div>
     <ul class="list-unstyled components">
         <li>
-            <a routerLink="/addrecord" class="add-button" id="add-record-button">Add New Record +</a>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addRecordModel">
+                Add New Record +
+            </button>
         </li>
         <li>
-            <a routerLink="/addcategory" class="add-button" id="add-folder-button">Add New Folder +</a>
+            <!-- <a routerLink="/addcategory" class="add-button" id="add-folder-button">Add New Folder +</a> -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModel">
+                Add New Folder +
+            </button>
         </li>
         <hr>
         <li *ngFor="let category of categories">
@@ -25,3 +30,5 @@
 </div>
 
 <app-record-detail [record]="record"></app-record-detail>
+<app-add-record></app-add-record>
+<app-add-category></app-add-category>
