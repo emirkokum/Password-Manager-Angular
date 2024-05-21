@@ -1,4 +1,90 @@
-<div class="sidebar">
+<body>
+    <div class="sidebar d-none d-md-block">
+        <div class="sidebar-header">
+            <a href="#">PassMan</a>
+        </div>
+        <ul class="list-unstyled components">
+            <li>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addRecordModel">
+                    Add New Record +
+                </button>
+            </li>
+            <li>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModel">
+                    Add New Folder +
+                </button>
+            </li>
+            <hr>
+            <li>
+                <a href="#">All Records</a>
+            </li>
+            <li *ngFor="let category of categories">
+                <a routerLink="/category/{{category.id}}">{{category.name}}</a>
+                <ul class="list-unstyled record-list" *ngFor="let record of records">
+                    <li *ngIf="record.categoryId == category.id">
+                        <button type="button" class="record" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            (click)="setRecordDetail(record.id)">
+                            {{ record.title }}
+                        </button>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Offcanvas Sidebar Trigger Button -->
+    <button class="btn btn-primary d-md-none" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
+        Menu
+    </button>
+
+    <!-- Offcanvas Sidebar -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasSidebarLabel">PassMan</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="list-unstyled components">
+                <li>
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                        data-bs-target="#addRecordModel">
+                        Add New Record +
+                    </button>
+                </li>
+                <li>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#addCategoryModel">
+                        Add New Folder +
+                    </button>
+                </li>
+                <hr>
+                <li>
+                    <a href="#">All Records</a>
+                </li>
+                <li *ngFor="let category of categories">
+                    <a routerLink="/category/{{category.id}}">{{category.name}}</a>
+                    <ul class="list-unstyled record-list" *ngFor="let record of records">
+                        <li *ngIf="record.categoryId == category.id">
+                            <button type="button" class="record" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                (click)="setRecordDetail(record.id)">
+                                {{ record.title }}
+                            </button>
+                        </li>
+                    </ul>
+            </ul>
+        </div>
+    </div>
+
+    <app-record-detail [record]="record"></app-record-detail>
+    <app-add-record></app-add-record>
+    <app-add-category></app-add-category>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+
+
+<!-- <div class="sidebar">
     <div class="sidebar-header">
         <a href="#">PassMan</a>
     </div>
@@ -9,17 +95,20 @@
             </button>
         </li>
         <li>
-            <!-- <a routerLink="/addcategory" class="add-button" id="add-folder-button">Add New Folder +</a> -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModel">
                 Add New Folder +
             </button>
         </li>
         <hr>
+        <li>
+            <a href="#">All Records</a>
+        </li>
         <li *ngFor="let category of categories">
             <a routerLink="/category/{{category.id}}">{{category.name}}</a>
             <ul class="list-unstyled record-list" *ngFor="let record of records">
+
                 <li *ngIf="record.categoryId == category.id">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    <button type="button" class="record" data-bs-toggle="modal" data-bs-target="#exampleModal"
                         (click)="setRecordDetail(record.id)">
                         {{ record.title }}
                     </button>
@@ -31,4 +120,4 @@
 
 <app-record-detail [record]="record"></app-record-detail>
 <app-add-record></app-add-record>
-<app-add-category></app-add-category>
+<app-add-category></app-add-category> -->
