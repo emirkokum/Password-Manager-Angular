@@ -126,6 +126,10 @@ a {
   padding-bottom: 5%;
 }
 
+.offcanvas ul.components li{
+  margin-bottom: 5px;
+}
+
 .offcanvas ul.components li a {
   text-decoration: none;
   font-size: 18px;
@@ -154,99 +158,31 @@ a {
   text-decoration: underline;
 }
 
-/* 
-a {
-  text-decoration: none;
-  color: #eee;
+#sidebar,
+#offcanvas {
+  display: none;
 }
 
-.record {
-  color: #eee;
-  font-size: 18px;
-  font-weight: 400;
+/* Laptop ve daha büyük ekranlar için */
+@media (min-width: 992px) {
+  #sidebar {
+    display: block;
+  }
 }
 
-.sidebar {
-  background-color: #172b4d;
-  color: #eee;
-  padding: 5%;
-  padding-left: 8%;
-  height: 100%;
-  min-height: 100vh;
-  width: 100%;
+/* Tablet ve daha küçük ekranlar için */
+@media (max-width: 993px) {
+  #offcanvas {
+    display: block;
+  }
 }
 
-.sidebar-header {
-  font-family: "Poetsen One", "sans-serif";
-  font-size: 48px;
-  padding-top: 10%;
-  padding-bottom: 10%;
-}
+@media (max-width: 1450px) {
+  .sidebar-header{
+    font-size: 32px;
+  } 
 
-.sidebar ul.components {
-  padding: 20px 0;
+  #add-folder-button,#add-record-button{
+    font-size: 14px;
+  }
 }
-
-.sidebar ul.components li {
-  margin-bottom: 10px;
-}
-
-.sidebar ul.components li a {
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: 500;
-  color: #eee;
-}
-
-.sidebar ul.components li a:hover {
-  color: #eee;
-  font-size: 19px;
-  transition: 0.4s;
-}
-
-.sidebar ul.components li ul.child-list {
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: 400;
-  margin-left: 10%;
-  cursor: pointer;
-}
-
-.sidebar ul.record-list li button {
-  background-color: transparent;
-  border: white;
-  height: 20px;
-  margin: 1%;
-}
-
-.record-list {
-  margin-left: 8%;
-  font-size: 14px;
-}
-
-#add-record-button {
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 18px;
-  color: #1fea00;
-  cursor: pointer;
-}
-#add-record-button:hover {
-  font-size: 20px;
-  color: #23ea00;
-  transition: 0.5s;
-}
-#add-folder-button {
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 18px;
-  color: #00c0e2;
-  cursor: pointer;
-}
-
-#add-folder-button:hover {
-  font-size: 20px;
-  color: #00c3e5;
-  transition: 0.5s;
-}
-*/

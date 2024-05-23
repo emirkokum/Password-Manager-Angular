@@ -4,27 +4,18 @@ import { RecordDetailService } from '../../services/recordDetail.service';
 import { Record } from '../../models/record';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { HidePasswordPipe } from '../../pipes/hide-password.pipe';
 import { RecordService } from '../../services/record.service';
 import { ToastrService } from 'ngx-toastr';
 import { RecordDetailComponent } from '../record-detail/record-detail.component';
 import { AgGridAngular } from 'ag-grid-angular';
-import { ColDef, CellClickedEvent } from 'ag-grid-community';
-import {
-  MatDialog,
-  MAT_DIALOG_DATA,
-  MatDialogRef,
-  MatDialogTitle,
-  MatDialogContent,
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogModule,
-} from '@angular/material/dialog';
+import { ColDef, CellClickedEvent, GridOptions, GridApi } from 'ag-grid-community';
+import { MatDialog, MatDialogModule, } from '@angular/material/dialog';
 import { RecordDeleteDialogComponent } from '../record-delete-dialog/record-delete-dialog.component';
+import { AddRecordComponent } from '../add-record/add-record.component';
 @Component({
   selector: 'app-record',
   standalone: true,
-  imports: [MatDialogModule, AgGridAngular, CommonModule, HidePasswordPipe, RecordDetailComponent],
+  imports: [AddRecordComponent, MatDialogModule, AgGridAngular, CommonModule, RecordDetailComponent],
   templateUrl: './record.component.html',
   styleUrl: './record.component.css'
 })
@@ -65,49 +56,66 @@ export class RecordComponent implements OnInit {
     {
       field: 'Name',
       resizable: false,
-      filter: 'true',
-      filterParams:{defaultOption:"contains"}
+      filter: true,
+      floatingFilter: true,
+      minWidth: 200,
+      filterParams: { defaultOption: "contains" }
+    },
+    {
+      field: 'Folder',
+      resizable: false,
+      filter: true,
+      floatingFilter: true,
+      minWidth: 200,
+      filterParams: { defaultOption: "contains" }
+    },
+    {
+      field: 'Username',
+      resizable: false,
+      minWidth: 320,
+      onCellClicked: (event: CellClickedEvent) => {
+        if (event.data.Username) {
+          this.copyToClipboard(event.data.Username)
+        } else this.toastr.error("There is no data", "Error")
+      }
+    },
+    {
+      field: 'Password',
+      resizable: false,
+      minWidth: 200,
+      cellRenderer: (params) => { return params.value.replace(/./g, '*'); },
+      onCellClicked: (event: CellClickedEvent) => this.copyToClipboard(event.data.Password)
 
     },
-    { field: 'Folder', resizable: false },
-    { field: 'Username', resizable: false },
     {
-      field: 'Password', resizable: false,
-      cellRenderer: (params) => { return params.value.replace(/./g, '*'); }
+      field: 'Url',
+      resizable: false,
+      minWidth: 300,
+      onCellClicked: (event: CellClickedEvent) => {
+        if (event.value) {
+          window.open(event.value, '_blank')
+        } else this.toastr.error("There is no url", "Error")
+      }
     },
     {
-      field: '', resizable: false,
-      cellRenderer: () => {
-        return '<i class="bi bi-copy" style="cursor:pointer; font-size:16px;"></i>';
-      },
-      onCellClicked: (event: CellClickedEvent) => this.copyPassword(event.data.Password),
-      width: 60,
-      headerName: '',
-      filter: false,
-      suppressSizeToFit: true,
+      field: 'Notes',
+      minWidth: 250,
     },
     {
-      field: 'Url', width: 270, resizable: false,
-      onCellClicked: (event: CellClickedEvent) => window.open(event.value, '_blank')
-    },
-    { field: 'Notes', width: 300 },
-    {
-      field: 'Delete', resizable: false,
+      field: 'Delete',
+      minWidth: 50,
+      maxWidth:75,
+      resizable: false,
       cellRenderer: () => {
         return '<i class="bi bi-trash-fill" style="cursor:pointer; font-size:16px;"></i>';
       },
       onCellClicked: (event: CellClickedEvent) => this.deleteRecord(event.data.id),
-      width: 60,
       headerName: '',
       filter: false,
       suppressSizeToFit: true,
     }
 
   ];
-
-  refreshPage() {
-    this.getRecordDetails()
-  }
 
   async getRecordById(id: number) {
     const response = await this.recordService.getRecordById(id).toPromise();
@@ -123,17 +131,14 @@ export class RecordComponent implements OnInit {
 
   async deleteRecord(id: number) {
     const result = await this.openDialog().afterClosed().toPromise();
-
     if (!result) {
       return;
     } else {
       try {
-        debugger
         await this.getRecordById(id);
         this.recordService.delete(this.recordToDelete).subscribe(
           response => {
             this.toastr.success(response.message, "Success");
-            this.refreshPage();
           },
           responseError => {
             if (responseError.error?.Errors?.length > 0) {
@@ -163,10 +168,21 @@ export class RecordComponent implements OnInit {
     })
   }
 
-  copyPassword(password: string) {
-    navigator.clipboard.writeText(password)
-      .then(() => this.toastr.info("Password coppied to clipboard"))
-      .catch(err => this.toastr.warning("Password couldn't coppied to clipboard"));
+  copyToClipboard(text: string) {
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        this.toastr.info("Text copied to clipboard for 10 seconds.");
+
+        setTimeout(async () => {
+          try {
+            await navigator.clipboard.writeText('');
+            this.toastr.warning("Clipboard cleared");
+          } catch (err) {
+            this.toastr.error("Clipboard couldn't be cleared");
+          }
+        }, 10000);
+      })
+      .catch(err => this.toastr.warning("Text couldn't be copied to clipboard"));
   }
 
   openDialog() {
@@ -176,5 +192,5 @@ export class RecordComponent implements OnInit {
     });
   }
 
-
 }
+

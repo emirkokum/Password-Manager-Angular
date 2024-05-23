@@ -6,11 +6,13 @@ import { Category } from '../../models/category';
 import { RecordService } from '../../services/record.service';
 import { Record } from '../../models/record';
 import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
+import { RecordDeleteDialogComponent } from '../record-delete-dialog/record-delete-dialog.component';
 
 @Component({
   selector: 'app-add-category',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, CommonModule],
+  imports: [RecordDeleteDialogComponent, ReactiveFormsModule, FormsModule, CommonModule],
   templateUrl: './add-category.component.html',
   styleUrl: './add-category.component.css'
 })
@@ -19,7 +21,7 @@ export class AddCategoryComponent implements OnInit {
   categoryAddForm: FormGroup;
   records: Record[] = []
 
-  constructor(private toastr: ToastrService, private formBuilder: FormBuilder, private categoryService: CategoryService, private recordService: RecordService) { }
+  constructor(public dialog: MatDialog, private toastr: ToastrService, private formBuilder: FormBuilder, private categoryService: CategoryService, private recordService: RecordService) { }
 
   ngOnInit(): void {
     this.getRecords()
@@ -55,7 +57,7 @@ export class AddCategoryComponent implements OnInit {
     for (let i = 0; i < this.categories.length; i++) {
       if (this.records[i].categoryId == categoryId) {
         return true;
-      }return false;
+      } return false;
     }
     return false;
   }
@@ -89,7 +91,36 @@ export class AddCategoryComponent implements OnInit {
     }
   }
 
+  // async deleteCategory(category:Category) {
+  //   const result = await this.openDialog().afterClosed().toPromise();
+  //   if (!result) {
+  //     return;
+  //   } else {
+  //     try {
+  //       this.categoryService.delete(category).subscribe(
+  //         response => {
+  //           this.toastr.success(response.message, "Success");
+  //         },
+  //         responseError => {
+  //           if (responseError.error?.Errors?.length > 0) {
+  //             for (let i = 0; i < responseError.error.Errors.length; i++) {
+  //               this.toastr.error(responseError.error.Errors[i].ErrorMessage, "Validation Error");
+  //             }
+  //           }
+  //         }
+  //       );
+  //     } catch (error) {
+  //       console.error("An error occurred while deleting the record:", error);
+  //     }
+  //   }
+  // }
 
+  // openDialog() {
+  //   return this.dialog.open(RecordDeleteDialogComponent, {
+  //     width: '550px',
+  //     panelClass: 'matdialog-delete'
+  //   });
+  // }
 
 
 

@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="addCategoryModel">Category</h1>
+                <h1 class="modal-title fs-5" id="addCategoryModel">Folder</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -54,46 +54,3 @@
         </div>
     </div>
 </div>
-<!-- <div class="content my-3 p-5 mx-5">
-    <div class="col-md-12">
-        <div class="card mt-2">
-            <div class="card-header">
-                <h5 class="text-center my-2">Add Folder</h5>
-            </div>
-            <div class="card-body">
-                <form [formGroup]="categoryAddForm">
-                    <div class="my-3">
-                        <label for="name">Folder Name</label>
-                        <div class="form-group">
-                            <input class="form-control" type="text" id="name" formControlName="name"
-                                placeholder="Folder Name" />
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="card-footer d-flex justify-content-center py-3">
-                <button class="btn btn-primary w-50" (click)="addCategory()">Add</button>
-            </div>
-        </div>
-
-        <div class="py-5 bg-body-tertiary rounded shadow mt-3">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let category of categories">
-                        <td>{{ category.id }}</td>
-                        <td>{{ category.name }}</td>
-                        <td class="d-flex justify-content-end"><button (click)="deleteCategory(category)"
-                                class="btn btn-danger ">Delete</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div> -->
