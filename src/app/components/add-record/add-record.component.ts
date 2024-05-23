@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Category } from '../../models/category';
 import { CategoryService } from '../../services/category.service';
 import { CommonModule } from '@angular/common';
+import { EventEmitter } from '@angular/core';
 
 
 @Component({
@@ -15,6 +16,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './add-record.component.css'
 })
 export class AddRecordComponent implements OnInit {
+
   recordAddForm: FormGroup;
   categories: Category[] = []
   constructor(private categoryService: CategoryService, private toastr: ToastrService, private recordService: RecordService, private formBuilder: FormBuilder) { }
@@ -54,9 +56,6 @@ export class AddRecordComponent implements OnInit {
     if (this.recordAddForm.valid) {
       let recordModel = Object.assign({}, this.recordAddForm.value)
       this.recordService.add(recordModel).subscribe(response => {
-        this.refreshPage()
-        // this.recordAdded.emit(recordModel.title);
-        // window.location.reload();
         this.toastr.success(response.message, "Success")
       }, responseError => {
         if (responseError.error?.Errors?.length > 0) {
