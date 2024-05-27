@@ -58,7 +58,8 @@ export class RecordComponent implements OnInit {
       resizable: false,
       filter: true,
       floatingFilter: true,
-      minWidth: 200,
+      minWidth: 100,
+      flex:3,
       filterParams: { defaultOption: "contains" }
     },
     {
@@ -66,13 +67,15 @@ export class RecordComponent implements OnInit {
       resizable: false,
       filter: true,
       floatingFilter: true,
-      minWidth: 200,
+      minWidth: 100,
+      flex:3,
       filterParams: { defaultOption: "contains" }
     },
     {
       field: 'Username',
       resizable: false,
-      minWidth: 320,
+      minWidth: 150,
+      flex:3,
       onCellClicked: (event: CellClickedEvent) => {
         if (event.data.Username) {
           this.copyToClipboard(event.data.Username)
@@ -82,7 +85,8 @@ export class RecordComponent implements OnInit {
     {
       field: 'Password',
       resizable: false,
-      minWidth: 200,
+      minWidth: 80,
+      flex:3,
       cellRenderer: (params) => { return params.value.replace(/./g, '*'); },
       onCellClicked: (event: CellClickedEvent) => this.copyToClipboard(event.data.Password)
 
@@ -90,7 +94,9 @@ export class RecordComponent implements OnInit {
     {
       field: 'Url',
       resizable: false,
-      minWidth: 300,
+      minWidth: 100,
+      // maxWidth:180,
+      flex:5,
       onCellClicked: (event: CellClickedEvent) => {
         if (event.value) {
           window.open(event.value, '_blank')
@@ -99,12 +105,12 @@ export class RecordComponent implements OnInit {
     },
     {
       field: 'Notes',
-      minWidth: 250,
+      flex:4,
     },
     {
       field: 'Delete',
       minWidth: 50,
-      maxWidth:75,
+      flex:1,
       resizable: false,
       cellRenderer: () => {
         return '<i class="bi bi-trash-fill" style="cursor:pointer; font-size:16px;"></i>';
